@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 * {
   box-sizing: border-box;
-  font-family: "Roboto"
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -99,7 +99,6 @@ body {
   padding: 0 18px;
   overflow: hidden;
   position: relative;
-  gap: 25px;
 }
 
 .story {
@@ -112,7 +111,7 @@ body {
   font-size: 12px;
   cursor: pointer;
   margin-right: 10px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .story .imagem {
@@ -175,6 +174,7 @@ body {
   width: 32px;
   height: 32px;
   margin-right: 10px;
+  border-radius: 16px;
 }
 
 .post .usuario,
@@ -214,6 +214,7 @@ body {
   width: 20px;
   height: 20px;
   margin-right: 10px;
+  border-radius: 16px;
 }
 
 .post:last-child {
@@ -317,4 +318,14 @@ ion-icon {
   margin-left: 5px;
   padding-top: 5px;
   color: black;
+}
+
+.liked {
+  color: red;
+  transition: color 0.3s ease;
+}
+
+.saved {
+  color: black;
+  transition: color 0.3s ease;
 }

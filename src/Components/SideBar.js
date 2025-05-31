@@ -1,55 +1,30 @@
-export default Sidebar;
+import { useState } from "react";
+import React from "react";
+import { perfisSugeridos } from "./db";
 
-const perfis = [
-  {
-    nome: "Luffy",
-    imagem:
-      "https://img.assinaja.com/upl/lojas/mundosinfinitos/imagens/foto-one-piece.png",
-    seguir: "Seguir",
-    razao: "Novo no instagram",
-  },
-  {
-    nome: "Law",
-    imagem:
-      "https://i.pinimg.com/564x/c6/e4/38/c6e4388d71fcb5b8a42bf51a6913ea87.jpg",
-    seguir: "Seguir",
-    razao: "Segue você",
-  },
-  {
-    nome: "Shanks",
-    imagem:
-      "https://preview.redd.it/shanks-the-red-charismatic-figure-of-one-piece-is-hiding-a-v0-uumqo5hxu2qc1.jpeg?auto=webp&s=9bc54f77bc751e628d8dcfd6f5ccdcbaa7331fa2",
-    seguir: "Seguir",
-    razao: "Novo no instagram",
-  },
-  {
-    nome: "Kaidou",
-    imagem:
-      "https://ovicio.com.br/wp-content/uploads/2022/01/20220109-kaido-poderes-e-tecnicas-do-kaido.jpeg",
-    seguir: "Seguir",
-    razao: "Segue você",
-  },
-  {
-    nome: "Zoro",
-    imagem:
-      "https://vcfaz.tv/wp/wp-content/uploads/2025/03/Zoro-de-One-Piece-tem-um-dos-poderes.jpg",
-    seguir: "Seguir",
-    razao: "Segue você",
-  },
-];
+const imagemInicial =
+  "https://wallpapers.com/images/hd/smiling-bloody-trafalgar-law-one-piece-fanart-44bsvjb9q10npjlr.jpg";
 
 function Sidebar() {
+  const [nome, setNome] = React.useState("");
+  function InserirNome() {
+    const nomeDigitado = prompt("Qual o seu nome?");
+    setNome(nomeDigitado);
+  }
+  const [avatar, setAvatar] = React.useState(imagemInicial);
+  function mudaAvatar() {
+    const linkAvatar = prompt("Insira o Url da Imagem");
+    setAvatar(linkAvatar ? linkAvatar : imagemInicial);
+  }
+
   return (
     <div className="sidebar">
       <div className="usuario">
-        <img
-          src="https://pm1.aminoapps.com/7182/8dcbdef4307e039dadf7c0924793dc98e1d85d87r1-640-480v2_hq.jpg"
-          alt="imagem de perfil"
-        />
+        <img onClick={mudaAvatar} src={avatar} alt="avatar" />
         <div className="texto">
           <span>
-            <strong>catanacomics</strong>
-            <ion-icon name="pencil"></ion-icon>
+            <strong>{!nome ? "tokin" : nome}</strong>
+            <ion-icon onClick={InserirNome} name="pencil"></ion-icon>
           </span>
         </div>
       </div>
@@ -59,37 +34,50 @@ function Sidebar() {
           <div>Ver tudo</div>
         </div>
 
-        {perfis.map((conta, index) => (
+        {perfisSugeridos.map((conta, index) => (
           <Perfils
+            key={index}
             nome={conta.nome}
             razao={conta.razao}
             imagem={conta.imagem}
-            key={index}
             seguir={conta.seguir}
-            nomeClass="nome"
           />
         ))}
-        <div class="links">
+        <div className="links">
           Sobre • Ajuda • Imprensa • API • Carreiras • Privacidade • Termos •
           Localizações • Contas mais relevantes • Hashtags • Idioma
         </div>
-        <div class="copyright">© 2021 INSTAGRAM DO FACEBOOK</div>
+        <div className="copyright">© 2021 INSTAGRAM DO FACEBOOK</div>
       </ul>
     </div>
   );
 }
 
 function Perfils(props) {
+  const [follow, setFollow] = useState(false);
+
+  const toggleFollow = () => {
+    setFollow(!follow);
+  };
+
   return (
     <li className="sugestao">
       <div className="usuario">
-        <img src={props.imagem} />
+        <img src={props.imagem} alt={`Perfil de ${props.nome}`} />
         <div className="texto">
           <p className="nome">{props.nome}</p>
           <p className="razao">{props.razao}</p>
         </div>
       </div>
-      <p className="seguir">{props.seguir}</p>
+      <p
+        className="seguir"
+        onClick={toggleFollow}
+        style={{ cursor: "pointer", color: follow ? "black" : "blue" }}
+      >
+        {follow ? "Seguiu" : props.seguir}
+      </p>
     </li>
   );
 }
+
+export default Sidebar;
