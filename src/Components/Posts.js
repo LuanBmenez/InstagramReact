@@ -39,6 +39,12 @@ function PostIndividual({
     }
     setLiked(!liked);
   };
+  const likeOnly = () => {
+  if (!liked) {
+    setLikeCount(likeCount + 1);
+    setLiked(true);
+  }
+};
   const toggleSave = () => {
     setSave(!save);
   };
@@ -55,7 +61,7 @@ function PostIndividual({
         </div>
       </div>
       <div className="conteudo">
-        <img onClick={toggleLike}src={foto} />
+        <img onClick={likeOnly}src={foto} />
       </div>
       <div className="fundo">
         <div className="acoes">
